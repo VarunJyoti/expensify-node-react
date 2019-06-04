@@ -1,0 +1,47 @@
+const app = {
+    title: "Indecision App",
+    subtitle: "Dont worry",
+    options: []
+}
+
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    const option = e.target.elements.option.value;
+    if(option){
+        app.options.push(option)
+        e.target.elements.option.value = '';
+        render()
+    }
+   
+}
+let visibility = false;
+const toggleLbl = () => {
+   visibility = !visibility;
+   render();
+}
+const appRoot = document.getElementById('main');
+  
+function render(){
+    const template = (
+        <div>
+        <h1>{app.title}</h1>
+        <h2>{app.subtitle}</h2>
+        <ol>
+        {
+          app.options.map((option) => <li key={option}>{option}</li>)
+        }
+      </ol>
+        <button onClick={toggleLbl}>{visibility?"Hi":"Hello"}</button>
+        <form onSubmit={onFormSubmit}>
+            <input type="text" name="option"/>
+            <button>Add</button>
+        </form>
+    </div>
+    );
+    ReactDOM.render(template, appRoot);  
+}
+
+render();
+
+
+
